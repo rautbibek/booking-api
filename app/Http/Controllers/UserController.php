@@ -6,6 +6,7 @@ use App\Helper\Datatable;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -21,6 +22,20 @@ class UserController extends Controller
         
         return UserResource::collection($user);
 
+    }
+
+    public function userSetting($id){
+        $user = User::where('id',$id)->with(['roles','permissions'])->first();
+        return response()->json($user);
+    }
+
+
+    public function setUserRolePermission(Request $request,$id){
+        //return $request->all();
+        $user = User::where('id',$id)->firstOrFail();
+        $user->syncRoles($request->role);
+        $user->syncPermissions($request->permissions);
+        return response()->json('User roles and permissions updated succefully');
     }
 
     /**

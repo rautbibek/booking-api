@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login',[LoginController::class,'login']);
 Route::middleware('auth:sanctum')->group(function(){
-    //user module
+    Route::get('/auth/user',[UserController::class,'authUser']);
     Route::group(['prefix'=>'user'], function(){
         Route::get('/',[UserController::class,'index']);
         Route::post('/{id}/role',[UserController::class,'setUserRolePermission']);

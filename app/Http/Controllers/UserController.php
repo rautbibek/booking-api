@@ -24,6 +24,15 @@ class UserController extends Controller
 
     }
 
+    public function authUser(){
+        $user = Auth::user();
+        return response()->json([
+            'user'=>$user,
+            'roles'=>Auth::user()->getRoleNames(),
+            'permissions'=>$user->getAllPermissions()->pluck('name'),
+        ]);
+    }
+
     public function userSetting($id){
         $user = User::where('id',$id)->with(['roles','permissions'])->first();
         return response()->json($user);

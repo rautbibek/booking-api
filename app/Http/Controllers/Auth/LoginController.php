@@ -18,7 +18,7 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt(['email'=>$request->email, 'password'=>$request->password])) {
-            $user = Auth::user();
+            $user = User::where('id',Auth::id())->first();
             $token = $user->createToken('MyAppToken')->plainTextToken;
             $minutes = 1440;
             $timestamp = now()->addMinute($minutes);
@@ -29,7 +29,9 @@ class LoginController extends Controller
                 'access_token' => $token,
                 'token_type' => 'bearer',
                 'expires_at' => $expires_at,
-                'user'=> $user
+                'user'=> $user,
+                'roles'=>Auth::user()->getRoleNames(),
+                'permissions'=>$user->getAllPermissions()->pluck('name')
             ], 200);
         } else {
             return response()->json([

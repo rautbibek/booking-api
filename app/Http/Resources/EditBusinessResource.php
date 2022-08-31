@@ -2,9 +2,10 @@
 
 namespace App\Http\Resources;
 
+use App\Helper\MediaHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ServiceResource extends JsonResource
+class EditBusinessResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,14 +16,15 @@ class ServiceResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'=> $this->id,
+            'id'=>$this->id,
             'business_name'=>$this->business_name,
             'business_email'=>$this->business_email,
-            'business_logo'=>$this->business_logo,
-            'category'=>$this->category->name,
-            'status'=>$this->service_status,
-            'created_at'=>$this->created_at,
-            'about' => $this->about,
+            'category_id'=>$this->category_id,
+            'contact_number'=>$this->contact_number,
+            'full_address'=> $this->full_address,
+            'business_started_date'=> $this->business_started_date,
+            'business_detail'=> $this->about,
+            'cover_url' => MediaHelper::getThumbnailUrl($this->business_logo,'thumb')
         ];
     }
 }

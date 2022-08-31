@@ -3,17 +3,15 @@
 namespace App\Models;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Service extends Model implements HasMedia
-
+class Business extends Model implements HasMedia
 {
-    use HasFactory, HasSlug,InteractsWithMedia;
-
+    use HasFactory,HasSlug,InteractsWithMedia;
     protected $fillable =[
         'business_name',
         'business_email',

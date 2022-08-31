@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use App\Helper\MediaHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CategoryResource extends JsonResource
+class CategoryDetailResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,11 +17,9 @@ class CategoryResource extends JsonResource
     {
         return [
             'id'=>$this->id,
-            'name'=>$this->name,
-            'status'=> $this->status,
-            'image'=>MediaHelper::getThumbnailUrl($this->image,'thumb'),
+            'category_name'=>$this->name,
+            'has_package'=> $this->has_package?1:0,
             'package_names'=>$this->package_names,
-            'created_at'=> $this->created_at,
             'cover_url' => MediaHelper::getThumbnailUrl($this->image,'thumb')
         ];
     }
